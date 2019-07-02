@@ -1,0 +1,5 @@
+---
+# defaults file for mysql
+wp_mysql_db: alpha
+wp_mysql_user: alpha
+wp_mysql_password: alpha123

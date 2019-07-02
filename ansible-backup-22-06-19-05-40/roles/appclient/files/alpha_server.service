@@ -1,0 +1,10 @@
+[Unit]
+Description=Alpha Server Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python /opt/alpha/alpha_server.py >> /var/log/alpha_server.log 2>&1 &
+
+[Install]
+WantedBy=multi-user.target

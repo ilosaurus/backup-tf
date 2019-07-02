@@ -1,0 +1,41 @@
+---
+# Setup LAMP Stack
+- hosts: server
+  tasks:
+    - name: install lamp stack
+      become: yes
+      become_user: root
+      apt:
+        pkg:
+          - apache2
+          - mysql-server
+          - php7.0
+          - php7.0-mysql
+        state: present
+        update_cache: yes
+
+    - name: start apache service
+      become: yes
+      become_user: root
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: start mysql service
+      become: yes
+      become_user: root
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: create target directory
+      file: path=/var/www/html state=directory mode=0755
+
+    - name: deploy index.html
+      become: yes
+      become_user: root
+      copy:
+        src: /home/ubuntu/index.php
+        dest: /var/www/html/index.php

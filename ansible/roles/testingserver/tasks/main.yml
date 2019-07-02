@@ -1,0 +1,13 @@
+---
+# tasks file for testing
+- name: checking service status in server node
+  command: systemctl status "{{ item }}"
+  with_items:
+    - alpha_server
+    - alpha_client
+  register: result_test_server
+  ignore_errors: yes
+- name: showing report service server node
+  debug:
+    var: result_test_server
+

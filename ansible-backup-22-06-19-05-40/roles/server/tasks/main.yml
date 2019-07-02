@@ -1,0 +1,6 @@
+---
+# tasks file for server
+- name: Install required software in server node
+  apt: 
+    state: present
+    name: ['apache2', 'php7.2', 'php7.2-mysql', 'libapache2-mod-php7.2', 'mysql-server']

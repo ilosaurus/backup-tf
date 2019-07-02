@@ -1,0 +1,13 @@
+[client]
+10.199.199.101
+
+[server]
+10.199.199.109
+
+[all:vars]
+server_address=10.199.199.109
+server_port=8888
+mysql_host=10.199.199.109
+mysql_username=alpha
+mysql_password=alpha123
+

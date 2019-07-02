@@ -1,0 +1,51 @@
+---
+# tasks file for app
+- name: Install required software in server node
+  apt:
+    state: present
+    name: ['apache2', 'php7.2', 'php7.2-mysql', 'libapache2-mod-php7.2', 'mysql-server']
+
+- name: Install php extensions
+  apt: 
+    state: present
+    become: yes
+    name: ['php7.2-gd','php7.2-mysql']
+
+- name: Create script directory
+  file:
+    path: /opt/alpha
+    state: directory
+
+- name: deploy script to /opt/alpha in server node
+  template: 
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0777
+  with_items:
+    - { src: 'roles/appserver/files/alpha_server.py.j2', dest: '/opt/alpha/alpha_server.py' }
+    - { src: 'roles/appserver/files/alpha_client.py.j2', dest: '/opt/alpha/alpha_client.py' }
+    - { src: 'roles/appserver/files/alpha_report.py.j2', dest: '/opt/alpha/alpha_report.py' }
+
+- name: deploy systemd service in server node
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0777
+  with_items:
+    - { src: 'roles/appserver/files/alpha_server.service', dest: '/etc/systemd/system/alpha_server.service' }
+    - { src: 'roles/appserver/files/alpha_client.service', dest: '/etc/systemd/system/alpha_client.service' }
+    - { src: 'roles/appserver/files/alpha_report.service', dest: '/etc/systemd/system/alpha_report.service' }
+
+- name: systemd to reread configs
+  systemd:
+    daemon_reload: yes
+
+- name: start service  
+  systemd:
+    name: "{{ item }}"
+    state: started
+    daemon_reload: yes
+  with_items:
+    - 'alpha_server'
+    - 'alpha_client'
+

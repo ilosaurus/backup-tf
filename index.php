@@ -1,0 +1,14 @@
+<?php
+
+
+echo phpinfo();
+
+
+
+?>
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Deployed with Ansible</h1>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+---
+# tasks file for initconfig
+- name: Update apt cache
+  become: yes
+  apt:
+    upgrade: true
+    update_cache: yes
+    cache_valid_time: 36000
+
+- name: Install required software
+  sudo: yes
+  apt:
+    state: present
+    update_cache: yes
+    name: ['python-mysqldb','python-dev', 'libmysqlclient-dev', 'python-setuptools', 'python-pip']
+
+- name: Check if pip installed
+  command: "pip --version"
+
+- name: install dependency
+  command: "pip install mysql-connector-python mysql-python"
+

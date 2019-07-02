@@ -1,0 +1,28 @@
+- hosts: all
+  become: yes
+  gather_facts: True
+  roles:
+    - initconfig
+
+- hosts: server
+  become: yes
+  roles:
+    - appserver
+    - mysql
+
+- hosts: client
+  become: yes
+  roles:
+    - appclient
+
+- hosts: server
+  become: yes
+  roles:
+    - testingserver
+
+- hosts: client      
+  become: yes
+  roles:
+    - testingclient
+
+

@@ -1,0 +1,5 @@
+---
+# defaults file for python-dependencies
+pip_version: "9.0.*"
+pip_get_pip_version: "latest"
+pip_executable: "pip"

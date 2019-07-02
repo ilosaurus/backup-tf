@@ -1,0 +1,13 @@
+---
+# tasks file for mysql
+- name: Create mysql database
+  mysql_db: name=ssh_access_reports state=present
+  become: yes
+
+- name: Create mysql user
+  mysql_user: 
+    name={{ mysql_username }} 
+    password={{ mysql_password }} 
+    priv=*.*:ALL
+
+  become: yes  

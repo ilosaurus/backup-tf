@@ -1,0 +1,26 @@
+[client]
+10.199.199.210 ansible_ssh_user=root ansible_port=22
+
+#[server]
+#10.199.199.200 ansible_ssh_user=root ansible_port=22
+
+[server]
+10.199.199.221 ansible_ssh_user=root ansible_port=22
+
+[server:vars]
+server_address=10.199.199.221
+server_port=8888
+mysql_host=10.199.199.221
+mysql_username=alpha
+mysql_password=alpha123
+
+#[aut]
+#10.199.199.220 ansible_ssh_user=root ansible_port=22
+#
+#[aut:vars]
+#server_address=10.199.199.220
+#server_port=8888
+#mysql_host=10.199.199.200
+#mysql_username=alpha
+#mysql_password=alpha123
+

@@ -1,0 +1,21 @@
+---
+# tasks file for node
+- hostname: 
+    name: "node199.openshift.local"
+  register: hostname_changed
+
+- name: reboot node master
+  shell: sudo reboot
+  async: 1
+  poll: 0
+  when: hostname_changed is changed
+
+- name: Wait for the reboot to complete if there was a change.
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
+  when: hostname_changed is changed
+  
+

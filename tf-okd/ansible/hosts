@@ -1,0 +1,11 @@
+[master]
+10.199.199.30
+
+[node]
+10.199.199.31
+
+
+[all:vars]
+master_address=10.199.199.30
+node_address=10.199.199.31
+

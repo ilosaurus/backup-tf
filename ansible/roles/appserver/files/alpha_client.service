@@ -1,0 +1,12 @@
+[Unit]
+Description=Alpha Client Service
+After=multi-user.target
+
+[Service]
+type=idle
+ExecStartPre=/bin/bash -c 'rm -rf /tmp/mydaemon.pid'
+ExecStart=/usr/bin/python /opt/alpha/alpha_client.py >> /var/log/alpha_client.log 2>&1 &
+
+[Install]
+WantedBy=multi-user.target
+

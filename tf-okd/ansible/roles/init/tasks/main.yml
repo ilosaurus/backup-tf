@@ -1,0 +1,35 @@
+---
+# tasks file for init
+
+- name: check ip address
+  command: ip addr
+  register: out_ip_address
+
+- debug: var=out_ip_address.stdout_lines
+
+
+- name: check hostname
+  command: hostname
+  register: out_hostname
+
+- debug: var=out_hostname.stdout_lines
+
+
+- name: check disk
+  command: "fdisk -l"
+  register: out_disk
+
+- debug: var=out_disk.stdout_lines
+
+
+
+- name: install preflight tool
+  yum:
+    name: 
+      -  curl
+      -  wget
+      -  vim
+      -  nano
+    state: present
+
+

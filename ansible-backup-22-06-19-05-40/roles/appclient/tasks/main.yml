@@ -1,0 +1,35 @@
+---
+# tasks file for app
+- name: Create script directory
+  file:
+    path: /opt/alpha
+    state: directory
+
+- name: deploy script to /opt/alpha in client node
+  template: 
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0777
+  with_items:
+    - { src: 'roles/appserver/files/alpha_client.py.j2', dest: '/opt/alpha/alpha_client.py' }
+
+- name: deploy systemd service in client node
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0777
+  with_items:
+    - { src: 'roles/appserver/files/alpha_client.service', dest: '/etc/systemd/system/alpha_client.service' }
+
+- name: systemd to reread configs
+  systemd:
+    daemon_reload: yes
+
+- name: start service  
+  systemd:
+    name: "{{ item }}"
+    state: started
+    daemon_reload: yes
+  with_items:
+    - 'alpha_client'
+
